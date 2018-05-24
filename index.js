@@ -9,18 +9,20 @@ AFRAME.registerComponent('src-fit', {
 
     fit: function (w, h) {
         var ratio = (h || 1.0) / (w || 1.0);
-        var geo = this.el.geometry;
+        var geo = this.el.components.geometry;
         var neww, newh;
-        if (geo && geo.width) {
-            if (geo && geo.height && ratio > 1) { neww = geo.width / ratio; } else { newh = geo.height * ratio; }
-        } else
-            if (geo && geo.height) { neww = geo.width / ratio; } else {
+        if (geo && geo.data.width) {
+            if (geo && geo.data.height && ratio > 1) { neww = geo.data.width / ratio; } else { newh = geo.data.height * ratio; }
+        } else{
+            if (geo && geo.data.height) { neww = geo.data.width / ratio; } else {
                 // variable width and height, stay smaller than 1
                 neww = Math.min(1.0, 1.0 / ratio);
                 newh = Math.min(1.0, ratio);
             }
-        if (neww !== undefined) { this.el.setAttribute('width', neww); }
-        if (newh !== undefined) { this.el.setAttribute('height', newh); }
+        }
+        //debugger;
+        if (neww !== undefined) { this.el.components.geometry.data.width = neww;}//this.el.setAttribute('width', neww); }
+        if (newh !== undefined) { this.el.components.geometry.data.width = newh;}//this.el.setAttribute('height', newh); }
         this.el.emit('fit', [neww, newh]);
     },
 

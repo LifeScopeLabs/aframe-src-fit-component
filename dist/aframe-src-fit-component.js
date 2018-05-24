@@ -58,13 +58,23 @@
 	        var geo = this.el.geometry;
 	        var neww, newh;
 	        if (geo && geo.width) {
-	            if (geo && geo.height && ratio > 1) { neww = geo.width / ratio; } else { newh = geo.height * ratio; }
-	        } else
-	            if (geo && geo.height) { neww = geo.width / ratio; } else {
+				// if geo has both width have height
+				// and height > width, then change width
+	            if (geo && geo.height && ratio > 1) {
+					 neww = geo.width / ratio;
+				} else { // otherwise set a new height
+					// either geo.height is missing or it is smaller than width
+					 newh = geo.height * ratio;
+				}
+	        } else {// geo only has height
+	            if (geo && geo.height) {
+					neww = geo.width / ratio;
+				} else { // geo has neither width nor height
 	                // variable width and height, stay smaller than 1
 	                neww = Math.min(1.0, 1.0 / ratio);
 	                newh = Math.min(1.0, ratio);
-	            }
+				}
+			}
 	        if (neww !== undefined) { this.el.setAttribute('width', neww); }
 	        if (newh !== undefined) { this.el.setAttribute('height', newh); }
 	        this.el.emit('fit', [neww, newh]);
