@@ -11,18 +11,25 @@ AFRAME.registerComponent('src-fit', {
         var ratio = (h || 1.0) / (w || 1.0);
         var geo = this.el.components.geometry;
         var neww, newh;
+        // W
         if (geo && geo.data.width) {
-            if (geo && geo.data.height && ratio > 1) { neww = geo.data.width / ratio; } else { newh = geo.data.height * ratio; }
-        } else{
-            if (geo && geo.data.height) { neww = geo.data.width / ratio; } else {
+            // W < H
+            if (geo && geo.data.height && ratio > 1) {
+                neww = geo.data.width / ratio;
+            } else {  // W !H || W > H
+                newh = geo.data.width * ratio;
+            }
+        } else {  // !W H
+            if (geo && geo.data.height) {
+                neww = geo.data.height / ratio;
+            } else { // !W !H
                 // variable width and height, stay smaller than 1
                 neww = Math.min(1.0, 1.0 / ratio);
                 newh = Math.min(1.0, ratio);
             }
         }
-        //debugger;
-        if (neww !== undefined) { this.el.components.geometry.data.width = neww;}//this.el.setAttribute('width', neww); }
-        if (newh !== undefined) { this.el.components.geometry.data.width = newh;}//this.el.setAttribute('height', newh); }
+        if (neww !== undefined) { this.el.updateComponent('geometry', {width: neww});}
+        if (newh !== undefined) { this.el.updateComponent('geometry', {height: newh});}
         this.el.emit('fit', [neww, newh]);
     },
 
