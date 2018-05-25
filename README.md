@@ -40,30 +40,13 @@ and the great Slack discussion resulting in this separate component.
 
 ### Installation
 
-#### Browser
-
-Install and use by directly including the [browser files](dist):
-
-```html
-<head>
-  <title>My A-Frame Scene</title>
-  <script src="https://aframe.io/releases/0.4.0/aframe.min.js"></script>
-  <script src="https://rawgit.com/chenzlabs/aframe-src-fit-component/master/dist/aframe-src-fit-component.min.js"></script>
-</head>
-
-<body>
-  <a-scene>
-    <a-image src="..." src-fit></a-image>
-  </a-scene>
-</body>
-```
 
 #### npm
 
 Install via npm:
 
 ```bash
-npm install aframe-src-fit-controls-component
+npm install @mohrtw/aframe-src-fit-component
 ```
 
 Then register and use.

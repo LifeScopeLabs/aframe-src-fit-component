@@ -4,6 +4,7 @@ if (typeof AFRAME === 'undefined') {
   throw new Error('Component attempted to register before AFRAME was available.');
 }
 
+console.log("AFRAME.registerComponent('src-fit', ...");
 AFRAME.registerComponent('src-fit', {
     dependencies: ['geometry', 'material'],
 
