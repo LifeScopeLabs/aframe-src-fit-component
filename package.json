@@ -2,7 +2,7 @@
   "name": "@mohrtw/aframe-src-fit-component",
   "version": "0.1.4",
   "description": "src-fit texture-fitting component for A-Frame.",
-  "main": "src/index.js",
+  "main": "index.js",
   "scripts": {
     "build": "webpack",
     "dev": "webpack-dev-server",
