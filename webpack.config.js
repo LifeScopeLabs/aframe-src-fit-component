@@ -2,7 +2,7 @@ var path = require('path');
 
 module.exports = {
     // This is the "main" file which should include all other modules
-    entry: './src/main.js',
+    entry: './src/index.js',
     // Where should the compiled file go?
     output: {
       path: path.resolve(__dirname, './dist'),
