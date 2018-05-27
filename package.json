@@ -1,5 +1,5 @@
 {
-  "name": "@mohrtw/aframe-src-fit-component",
+  "name": "aframe-src-fit-component",
   "version": "0.1.4",
   "description": "src-fit texture-fitting component for A-Frame.",
   "main": "index.js",
