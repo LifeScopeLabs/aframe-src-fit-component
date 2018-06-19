@@ -17,21 +17,16 @@ AFRAME.registerComponent('src-fit', {
         var neww, newh;
         // W
         if (geo && geo.data.width) {
-            console.log('W');
             // W < H
             if (geo && geo.data.height && ratio > 1) {
-                console.log('W < H');
                 neww = geo.data.width / ratio;
             } else {  // W !H || W > H
-                console.log('W !H || W > H');
                 newh = geo.data.width * ratio;
             }
         } else {  // !W H
             if (geo && geo.data.height) {
-                console.log('!W H');
                 neww = geo.data.height / ratio;
             } else { // !W !H
-                console.log('!W !H');
                 // variable width and height, stay smaller than 1
                 neww = Math.min(1.0, 1.0 / ratio);
                 newh = Math.min(1.0, ratio);
@@ -77,23 +72,17 @@ AFRAME.registerComponent('src-fit', {
     onMaterialLoaded: function (e) {
         var self = this;
         var src = e.detail.src;
-        console.log("onMaterialLoaded");
-        console.log(src);
+        
         var w = src.videoWidth || src.width;
         var h = src.videoHeight || src.height;
-        console.log("w: " + w);
-        console.log("h: " + h);
-        //if (w || h) { self.fit(w, h); }
+        
         if (this.data.orientation == 'auto' && (w || h)) {
-            console.log("orientation: auto");
             self.fit(w, h);
         }
         else if (this.data.orientation == 'width') {
-            console.log("orientation: width");
             self.fitWidth(w, h);
         }
         else if (this.data.orientation == 'height') {
-            console.log("orientation: height");
             self.fitHeight(w, h);
         }
     },
