@@ -8,7 +8,8 @@ AFRAME.registerComponent('src-fit', {
     dependencies: ['geometry', 'material'],
 
     schema: {
-        orientation: {default: 'auto', oneOf: ['auto', 'width', 'height']}
+        orientation: {default: 'auto', oneOf: ['auto', 'width', 'height']},
+        maxDimension: {default: -1}
       },
 
     fit: function (w, h) {
@@ -49,7 +50,9 @@ AFRAME.registerComponent('src-fit', {
         } else {  // !W H
             console.log('fitWidth requires geometry.data.width to be set.');
         }
-        if (newh !== undefined) { this.el.updateComponent('geometry', {height: newh});}
+        if (newh !== undefined) { 
+            this.el.updateComponent('geometry', {height: newh});
+        }
         this.el.emit('fit', [geo.data.width, newh]);
     },
 
@@ -69,6 +72,42 @@ AFRAME.registerComponent('src-fit', {
         this.el.emit('fit', [neww, geo.data.height]);
     },
 
+    fitMax: function () {
+        var geo = this.el.components.geometry;
+        var h = geo.data.height;
+        var w = geo.data.width;
+        var md = this.data.maxDimension;
+        var ratio = (h || 1.0) / (w || 1.0);
+        var neww, newh;
+        // W > md, H > md
+        if (w > md && h > md) {
+            // H > W
+            // set H to md
+            if (ratio > 1) {
+                newh = md;
+                neww = newh / ratio;
+            }
+            // W > H
+            // set W to md
+            else {
+                neww = md;
+                newh = neww * ratio;
+            }
+        }
+        // W > md > H
+        else if (w > md) {
+            neww = md;
+            newh = neww * ratio;
+        }
+        // H > md > W
+        else if (h > md) {
+            newh = md;
+            neww = newh / ratio;
+        }
+        if (neww !== undefined) { this.el.updateComponent('geometry', {width: neww});}
+        if (newh !== undefined) { this.el.updateComponent('geometry', {height: newh});}
+    },
+
     onMaterialLoaded: function (e) {
         var self = this;
         var src = e.detail.src;
@@ -84,6 +123,11 @@ AFRAME.registerComponent('src-fit', {
         }
         else if (this.data.orientation == 'height') {
             self.fitHeight(w, h);
+        }
+
+        // maxDimension
+        if (this.data.maxDimension > 0){
+            self.fitMax();
         }
     },
 
