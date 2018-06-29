@@ -44,7 +44,7 @@ AFRAME.registerComponent('src-fit', {
         var newh;
         // W
         if (geo && geo.data.width) {
-            console.log('W');
+            //console.log('W');
             newh = geo.data.width * ratio;
             
         } else {  // !W H
@@ -62,7 +62,7 @@ AFRAME.registerComponent('src-fit', {
         var neww;
         // W
         if (geo && geo.data.height) {
-            console.log('H');
+            //console.log('H');
             neww = geo.data.width / ratio;
             
         } else {  // !W H
